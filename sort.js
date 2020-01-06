@@ -460,4 +460,6 @@ function sortBooks(booksArray) {
     return booksArray.sort();
 }
 
-let booksArray = ['Enders Game', 'Three Blind Mice', 'Alex Stormrider', 'Unbroken', 'jQuery book']
+let booksArray = ['Enders Game', 'Three Blind Mice', 'Alex Stormrider', 'Unbroken', 'Jquery book', 'A Tale of Time', 'Computer Science', 'Another One Bites the Dust']
+
+console.log(sortBooks(booksArray))
