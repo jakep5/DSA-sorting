@@ -366,3 +366,98 @@ console.log(mergeSortLinkedList(testList))
 
 console.log(testList.length())
 
+//6) Bucket sort
+
+//Write O(n) algorithm to sort an array of integers where you know what the lowest and highest values are
+//Cannot use arr.splice(), arr.shift(), and arr.unshift()
+
+function bucketSort(array, bucketSize) {
+    if (array.length === 0) {
+        return array;
+    }
+
+    //Determine minimum and maximum values
+
+    let i;
+    let minValue = array[0];
+    let maxValue = array[0];
+    for (let i = 1; i < array.length; i++) {
+        if (array[i] < minValue) {
+            minValue = array[i];
+        } else if (array[i] > maxValue) {
+            maxValue = array[i];
+        }
+    }
+
+    let DEFAULT_BUCKET_SIZE = 5;
+    bucketSize = bucketSize || DEFAULT_BUCKET_SIZE;
+    let bucketCount = Math.floor((maxValue - minValue) / bucketSize) + 1;
+    let buckets = new Array(bucketCount);
+    for (let i = 0; i < buckets.length; i++) {
+        buckets[i] = [];
+    }
+
+    //Distrubute the array values into buckets
+    for (let i = 0; i < array.length; i++) {
+        buckets[Math.floor((array[i] - minValue) / bucketSize)].push(array[i]);
+    }
+
+    //Sort the buckets and place back into input array
+    array.length = 0;
+    for (let i = 0; i < buckets.length; i++) {
+        insertionSort(buckets[i]);
+        for (let j = 0; j < buckets[i].length; j++) {
+            array.push(buckets[i][j]);
+        }
+    }
+
+    return array;
+}
+
+function insertionSort(array) {
+    let length = array.length;
+    for(let i = 0; i < length; i++) {
+        let el = array[i];
+        let j;
+
+        for (j = i-1; j >= 0 && array[j] > el; j--) {
+            array[j + 1] = array[j];
+        }
+        array[j + 1] = el;
+    }
+    return array;
+}
+
+
+let bucketArray = [9, 26, 24, 17, 4, 22];
+
+console.log(bucketSort(bucketArray))
+
+//7) Sort in place
+//Write an algorithm to shuffle an array into a random order in place(without creating a new array);
+
+function sortInPlace(array) {
+    if (array.length <= 1) {
+        return array;
+    }
+
+    for(let i = 0; i < array.length; i++) {
+        const position = Math.floor(Math.random() * array.length);
+        array[position] = array[i];
+    }
+
+    return array;
+}
+
+let testSortArray = [54, 86, 34, 98, 12, 16, 99, 28]
+
+console.log(sortInPlace(testSortArray))
+
+//8) Sorting books
+//Given 20 books to sort in alphabetical order - make an algorithm for this
+
+function sortBooks(booksArray) {
+    return booksArray.sort();
+}
+
+let booksArray = ['Enders Game', 'Three Blind Mice', 'Alex Stormrider', 'Unbroken', 'jQuery book']
